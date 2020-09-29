@@ -26,16 +26,16 @@ public:
 
 
     friend std::ostream& operator<<(std::ostream&, const Matrix &);
-    friend Matrix& CholeskyDecomp(const Matrix& A);
+    friend const Matrix CholeskyDecomp(const Matrix& A);
 
-    friend Vector& operator* (const Matrix&, const Vector&);
+    friend const Vector operator* (const Matrix&, const Vector&);
 
     int N;
 private:
     double* data;
 };
 
-Matrix& CholeskyDecomp(const Matrix& A);
+const Matrix CholeskyDecomp(const Matrix& A);
 
 class Vector {
 public:
@@ -49,7 +49,12 @@ public:
     double& operator[] (int i) const { return data[i]; }
 
     friend std::ostream& operator<<(std::ostream&, const Vector&);
-    friend Vector& operator* (const Matrix&, const Vector&);
+    friend const Vector operator* (const Matrix&, const Vector&);
+    friend const Vector operator+ (const Vector&, const Vector&);
+    friend const Vector operator- (const Vector&, const Vector&);
+
+    double norm() const;
+
 
     int N;
 private:

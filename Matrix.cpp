@@ -1,4 +1,5 @@
 #include "Matrix.h"
+#include "Math.h"
 
 Matrix::Matrix():
 	data(NULL),
@@ -91,6 +92,16 @@ Vector::~Vector() {
 	delete[] data;
 }
 
+double Vector::norm() const {
+	double res = 0.0;
+
+	for (int i = 0; i < N; i++) {
+		res += data[i] * data[i];
+	}
+
+	return myMath::sqrt(res);
+}
+
 
 std::ostream& operator<<(std::ostream& out, const Vector& a) {
 	out << "(" << a.N << "x1):\n";
@@ -101,14 +112,34 @@ std::ostream& operator<<(std::ostream& out, const Vector& a) {
 	return out;
 }
 
-Vector& operator* (const Matrix& A, const Vector& b) {
-	Vector* c = new Vector(A.N);
+const Vector operator* (const Matrix& A, const Vector& b) {
+	Vector c(A.N);
 
-	for (int i = 0; i < c->N; i++) {
-		for (int j = 0; j < c->N; j++) {
-			(*c)[i] += A.el(i, j) * b[j];
+	for (int i = 0; i < c.N; i++) {
+		for (int j = 0; j < c.N; j++) {
+			c[i] += A.el(i, j) * b[j];
 		}
 	}
 
-	return (*c);
+	return c;
+}
+
+const Vector operator-(const Vector& a, const Vector& b) {
+	Vector c(a.N);
+
+	for (int i = 0; i < c.N; i++) {
+		c[i] = a[i] - b[i];
+	}
+
+	return c;
+}
+
+const Vector operator+(const Vector& a, const Vector& b) {
+	Vector c(a.N);
+
+	for (int i = 0; i < c.N; i++) {
+		c[i] = a[i] + b[i];
+	}
+
+	return c;
 }

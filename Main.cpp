@@ -15,8 +15,11 @@ int main() {
         }
 
         LinSystem sys(A, A*x);
+        Vector res = sys.solve();
 
-        std::cout << "result:" << sys.solve();
+        std::cout << "result:" << res << "\n";
+
+        std::cout << "|res-x| = " << (res - x).norm();
     }
     catch (std::exception& e) {
         std::cerr << e.what();

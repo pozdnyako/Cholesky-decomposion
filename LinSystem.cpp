@@ -7,7 +7,7 @@ Vector& LinSystem::solve() {
 
 	std::cout << "A = " << A << std::endl << "b = " << b << std::endl;
 
-	Matrix& L = CholeskyDecomp(A);
+	Matrix L = CholeskyDecomp(A);
 	std::cout << "L = " << L << std::endl;
 
 	for (int i = 0; i < N; i++) {
